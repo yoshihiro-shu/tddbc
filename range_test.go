@@ -7,13 +7,13 @@ import (
 	"github.com/yoshihiro-shu/tddbc"
 )
 
-func TestClosedRange(t *testing.T) {
-	type args struct {
-		n1, n2 int
-	}
+type args struct {
+	n1, n2 int
+}
 
-	// 課題1-1 上端点、下端点
-	lowerEndpointTests := []struct {
+// 課題1-1 上端点、下端点
+func TestClosedRange_LowerEndpoint(t *testing.T) {
+	tests := []struct {
 		name   string
 		args   args
 		expect int
@@ -34,14 +34,18 @@ func TestClosedRange(t *testing.T) {
 			expect: 1,
 		},
 	}
-	for _, test := range lowerEndpointTests {
+	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			cr := tddbc.NewClosedRange(test.args.n1, test.args.n2)
 			res := cr.LowerEndpoint()
 			assert.Equal(t, res, test.expect)
 		})
 	}
-	upperEndpointTests := []struct {
+}
+
+// 課題1-1 上端点、下端点
+func TestClosedRange_UpperEndpoint(t *testing.T) {
+	tests := []struct {
 		name   string
 		args   args
 		expect int
@@ -62,16 +66,18 @@ func TestClosedRange(t *testing.T) {
 			expect: 1,
 		},
 	}
-	for _, test := range upperEndpointTests {
+	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			cr := tddbc.NewClosedRange(test.args.n1, test.args.n2)
 			res := cr.UpperEndpoint()
 			assert.Equal(t, res, test.expect)
 		})
 	}
+}
 
-	// 課題1-2 文字列表現 "[a,b]"
-	toStringTests := []struct {
+// 課題1-2 文字列表現 "[a,b]"
+func TestClosedRange_ToString(t *testing.T) {
+	tests := []struct {
 		name   string
 		args   args
 		expect string
@@ -92,16 +98,18 @@ func TestClosedRange(t *testing.T) {
 			expect: `"[1,1]"`,
 		},
 	}
-	for _, test := range toStringTests {
+	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			cr := tddbc.NewClosedRange(test.args.n1, test.args.n2)
 			res := cr.ToString()
 			assert.Equal(t, res, test.expect)
 		})
 	}
+}
 
-	// 課題1-3 帰属
-	containsTests := []struct {
+// 課題1-3 帰属
+func TestClosedRange_Countains(t *testing.T) {
+	tests := []struct {
 		name         string
 		args         args
 		containsArgs int
@@ -150,7 +158,7 @@ func TestClosedRange(t *testing.T) {
 			expect:       true,
 		},
 	}
-	for _, test := range containsTests {
+	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			cr := tddbc.NewClosedRange(test.args.n1, test.args.n2)
 			res := cr.Contains(test.containsArgs)
